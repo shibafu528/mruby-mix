@@ -26,6 +26,7 @@ MRuby::Build.new do |conf|
   conf.gembox 'default'
 
   conf.gem 'mruby-mix'
+  conf.gem 'mruby-mix-twitter-models'
   conf.gem 'mruby-mix-bin'
 
   # C compiler settings
