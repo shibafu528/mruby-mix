@@ -49,3 +49,8 @@ builds:
       branch: HEAD
       commit: 76087d150d12f167e95ae10d326099b352cf3d18
       version: 0.0.0
+    https://github.com/ksss/mruby-singleton.git:
+      url: https://github.com/ksss/mruby-singleton.git
+      branch: HEAD
+      commit: 73dd4bae1a47d82e49b8f85bf27f49ec4462052e
+      version: 0.0.0
