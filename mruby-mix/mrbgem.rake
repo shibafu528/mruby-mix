@@ -5,4 +5,5 @@ MRuby::Gem::Specification.new('mruby-mix') do |spec|
   spec.summary     = %q{Embeddable mikutter runtime}
 
   spec.add_dependency 'mruby-pluggaloid', :github => 'shibafu528/mruby-pluggaloid', :branch => 'mruby'
+  spec.add_dependency 'mruby-diva', :github => 'shibafu528/mruby-diva', :branch => 'mruby'
 end

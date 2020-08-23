@@ -34,3 +34,18 @@ builds:
       branch: HEAD
       commit: 4971702e8cd299054b3220b4adb6bc3031ae2881
       version: 0.0.0
+    https://github.com/shibafu528/mruby-diva.git:
+      url: https://github.com/shibafu528/mruby-diva.git
+      branch: HEAD
+      commit: 42a5a00effd2033920ef4ca9aaa41a9d1f62c87c
+      version: 0.2.1
+    https://github.com/zzak/mruby-uri.git:
+      url: https://github.com/zzak/mruby-uri.git
+      branch: HEAD
+      commit: b3108ae56a48990eb7b79f44aca4ec76e1e60ad8
+      version: 0.0.0
+    https://github.com/mattn/mruby-onig-regexp.git:
+      url: https://github.com/mattn/mruby-onig-regexp.git
+      branch: HEAD
+      commit: 76087d150d12f167e95ae10d326099b352cf3d18
+      version: 0.0.0
