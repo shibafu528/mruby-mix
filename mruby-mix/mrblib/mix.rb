@@ -8,6 +8,8 @@ module Mix
   class DoubleInitError < RuntimeError; end
   
   class << self
+    @@initialized = false
+    
     # 現在の環境にmikutter runtimeを展開する。
     # このメソッドは1回だけ呼びだす。
     def init!
