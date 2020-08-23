@@ -10,7 +10,9 @@ module Mikutime
   class << self
     # 現在の環境にmikutter runtimeを展開する。
     # このメソッドは1回だけ呼びだす。
-    def init! 
+    def init!
+      raise DoubleInitError if @@initialized
+      @@initialized = true
     end
 
     # み・く・た・い・む! みくたいむ! 起動できました! 発射しまーす!!

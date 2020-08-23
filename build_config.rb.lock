@@ -6,31 +6,31 @@ builds:
   host:
     https://github.com/shibafu528/mruby-pluggaloid.git:
       url: https://github.com/shibafu528/mruby-pluggaloid.git
-      branch: mruby
+      branch: HEAD
       commit: 6d87ca8bc7473397947e09eba2d2b68e7af60cd2
       version: 1.1.1
     https://github.com/shibafu528/mruby-delayer.git:
       url: https://github.com/shibafu528/mruby-delayer.git
-      branch: master
+      branch: HEAD
       commit: 41d94de29eb664b8e38e54ef513310cd5ff64b4d
       version: 0.0.2
     https://github.com/shibafu528/mruby-instance-storage.git:
       url: https://github.com/shibafu528/mruby-instance-storage.git
-      branch: master
+      branch: HEAD
       commit: d11690a510ddaf3559328cb78c1b81cd7260e152
       version: 1.0.0
     https://github.com/yui-knk/mruby-set.git:
       url: https://github.com/yui-knk/mruby-set.git
-      branch: master
+      branch: HEAD
       commit: 68334311ac7386eef84f3034a256e7135a87625d
       version: 0.0.0
     https://github.com/IceDragon200/mruby-catch-throw.git:
       url: https://github.com/IceDragon200/mruby-catch-throw.git
-      branch: master
+      branch: HEAD
       commit: 2b6eaff4232b4a9473b864df53c2917080af5dcf
       version: 1.1.0
     https://github.com/monochromegane/mruby-secure-random.git:
       url: https://github.com/monochromegane/mruby-secure-random.git
-      branch: master
+      branch: HEAD
       commit: 4971702e8cd299054b3220b4adb6bc3031ae2881
       version: 0.0.0
