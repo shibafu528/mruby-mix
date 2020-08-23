@@ -25,8 +25,8 @@ MRuby::Build.new do |conf|
   # include the default GEMs
   conf.gembox 'default'
 
-  conf.gem 'mruby-mikutime'
-  conf.gem 'mruby-mikutime-bin'
+  conf.gem 'mruby-mix'
+  conf.gem 'mruby-mix-bin'
 
   # C compiler settings
   conf.cc do |cc|

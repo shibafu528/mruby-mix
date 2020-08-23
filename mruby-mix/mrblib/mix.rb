@@ -4,7 +4,7 @@ Delayer.default = Delayer.generate_class(priority: [:high, :normal, :low], defau
 
 # 歌うだけならきっと誰でもできる
 # わたしはきっとそこらにいない女の子
-module Mikutime
+module Mix
   class DoubleInitError < RuntimeError; end
   
   class << self

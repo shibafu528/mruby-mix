@@ -1,4 +1,4 @@
-MRuby::Gem::Specification.new('mruby-mikutime') do |spec|
+MRuby::Gem::Specification.new('mruby-mix') do |spec|
   spec.license     = 'MIT'
   spec.authors     = ['shibafu528']
   spec.version     = '1.0.0'
