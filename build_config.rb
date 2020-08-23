@@ -27,6 +27,7 @@ MRuby::Build.new do |conf|
 
   conf.gem 'mruby-mix'
   conf.gem 'mruby-mix-twitter-models'
+  conf.gem 'mruby-mix-polyfill-gtk'
   conf.gem 'mruby-mix-bin'
 
   # C compiler settings
