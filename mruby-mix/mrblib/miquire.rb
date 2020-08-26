@@ -4,12 +4,12 @@ module Mix::Miquire
   class << self
     include Enumerable
 
-    # プラグインのロードパス。ファイルシステム上であれば単にパスを追加すればOK。
-    # ファイルシステム以外を使う場合は #each で Mix::Miquire::Plugin を列挙可能なオブジェクトとしてラップしてからここに登録する。
+    # プラグインのロードパス。#each で Mix::Miquire::Plugin を列挙可能なオブジェクトとしてラップしてからここに登録する。
+    # mruby-mix-miquire-fs を追加で導入している場合は、単にディレクトリのパスを登録することも可能。
     #
     # @example
-    #   Mix::Miquire.loadpath << '/foo/bar' << '/hoge/piyo'
     #   Mix::Miquire.loadpath << AcmePluginCollection.new
+    #   Mix::Miquire.loadpath << '/foo/bar' << '/hoge/piyo'
     def loadpath
       @loadpath ||= []
     end
@@ -18,12 +18,9 @@ module Mix::Miquire
       loadpath.map(&method(:path_to_tree))
     end
 
+    # mruby-mix-miquire-fsでのhook用
     def path_to_tree(path)
-      if path.respond_to?(:each)
-        path
-      else
-        FileSystemTree.new(path)
-      end
+      path.respond_to?(:each) && path
     end
 
     def each(&block)
@@ -54,57 +51,6 @@ module Mix::Miquire
 
     def load_all
       each(&:load)
-    end
-  end
-
-  # ファイルシステム上にあるプラグインが格納されたディレクトリ
-  class FileSystemTree
-    def initialize(path)
-      @path = path
-    end
-    
-    def each(&block)
-      Dir.foreach(@path) do |entry|
-        next if entry == '.' || entry == '..'
-        if FileTest.directory?(File.join(@path, entry)) && FileTest.exist?(File.join(@path, entry, "#{entry}.rb"))
-          block.(build_structured_plugin(entry))
-        elsif not entry.end_with?('.rb')
-          next
-        else
-          block.(build_single_file_plugin(entry))
-        end
-      end
-    end
-
-    def build_structured_plugin(dirname)
-      plugin_dir = File.join(@path, dirname)
-
-      spec_filename = File.join(plugin_dir, '.mikutter.yml')
-      deprecated_spec = false
-      unless FileTest.exist?(spec_filename)
-        spec_filename = File.join(plugin_dir, 'spec')
-        deprecated_spec = true
-      end
-
-      spec = if FileTest.exist?(spec_filename)
-               YAML.load(IO.read(spec_filename)).symbolize.merge(deprecated_spec: deprecated_spec)
-             else
-               { slug: dirname.to_sym, deprecated_spec: false }
-             end
-      loader = -> do
-        Kernel.load(File.join(plugin_dir, "#{spec[:slug]}.rb"))
-      end
-
-      Plugin.new(dirname, Spec.new(spec), loader)
-    end
-
-    def build_single_file_plugin(filename)
-      slug = filename.delete_suffix('.rb').to_sym
-      spec = Spec.new(slug: slug, deprecated_spec: false)
-      loader = -> do
-        Kernel.load(File.join(@path, filename))
-      end
-      Plugin.new(slug, spec, loader)
     end
   end
 
