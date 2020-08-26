@@ -30,3 +30,23 @@ def log(prefix, object)
     Mix.log e.backtrace.join("\n")
   end
 end
+
+class Array
+  include Comparable
+
+  def symbolize
+    result = []
+    each { |val|
+      result << if val.respond_to?(:symbolize) then val.symbolize else val end }
+    result
+  end
+end
+
+class Hash
+  def symbolize
+    result = {}
+    each_pair { |key, val|
+      result[key.to_sym] = if val.respond_to?(:symbolize) then val.symbolize else val end }
+    result
+  end
+end

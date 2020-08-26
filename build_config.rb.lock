@@ -54,3 +54,18 @@ builds:
       branch: HEAD
       commit: 73dd4bae1a47d82e49b8f85bf27f49ec4462052e
       version: 0.0.0
+    https://github.com/iij/mruby-dir.git:
+      url: https://github.com/iij/mruby-dir.git
+      branch: HEAD
+      commit: 89dceefa1250fb1ae868d4cb52498e9e24293cd1
+      version: 0.0.0
+    https://github.com/mrbgems/mruby-yaml.git:
+      url: https://github.com/mrbgems/mruby-yaml.git
+      branch: HEAD
+      commit: 0606652a6e99d902cd3101cf2d757a7c0c37a7fd
+      version: 0.1.0
+    https://github.com/mattn/mruby-require.git:
+      url: https://github.com/mattn/mruby-require.git
+      branch: HEAD
+      commit: b2b95a27b8658c46c5cb05abd168e77a12aef2a4
+      version: 0.0.0
