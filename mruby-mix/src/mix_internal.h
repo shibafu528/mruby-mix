@@ -5,6 +5,7 @@
 #include <mruby/variable.h>
 
 typedef struct {
+  mix_remain_handler remain_handler;
   mix_log_handler log_handler;
 } MixGlobalState;
 
