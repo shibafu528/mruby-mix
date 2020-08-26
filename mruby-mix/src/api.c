@@ -18,9 +18,9 @@ void MRB_API mix_run(mrb_state *mrb) {
   int ai = mrb_gc_arena_save(mrb);
 
   while (1) {
-    mrb_funcall(mrb, mod_delayer_val, sym_run, 0);
+    mrb_funcall_argv(mrb, mod_delayer_val, sym_run, 0, NULL);
 
-    mrb_value empty_p = mrb_funcall(mrb, mod_delayer_val, sym_empty_p, 0);
+    mrb_value empty_p = mrb_funcall_argv(mrb, mod_delayer_val, sym_empty_p, 0, NULL);
     if (mrb_bool(empty_p)) {
       break;
     }
