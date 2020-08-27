@@ -7,57 +7,17 @@ builds:
     https://github.com/shibafu528/mruby-pluggaloid.git:
       url: https://github.com/shibafu528/mruby-pluggaloid.git
       branch: HEAD
-      commit: 6d87ca8bc7473397947e09eba2d2b68e7af60cd2
+      commit: 56ca3d7a1b8cb4ea9fc786e922a7ec4f727e30f6
       version: 1.1.1
-    https://github.com/shibafu528/mruby-delayer.git:
-      url: https://github.com/shibafu528/mruby-delayer.git
-      branch: HEAD
-      commit: 41d94de29eb664b8e38e54ef513310cd5ff64b4d
-      version: 0.0.2
-    https://github.com/shibafu528/mruby-instance-storage.git:
-      url: https://github.com/shibafu528/mruby-instance-storage.git
-      branch: HEAD
-      commit: d11690a510ddaf3559328cb78c1b81cd7260e152
-      version: 1.0.0
-    https://github.com/yui-knk/mruby-set.git:
-      url: https://github.com/yui-knk/mruby-set.git
-      branch: HEAD
-      commit: 68334311ac7386eef84f3034a256e7135a87625d
-      version: 0.0.0
-    https://github.com/IceDragon200/mruby-catch-throw.git:
-      url: https://github.com/IceDragon200/mruby-catch-throw.git
-      branch: HEAD
-      commit: 2b6eaff4232b4a9473b864df53c2917080af5dcf
-      version: 1.1.0
-    https://github.com/monochromegane/mruby-secure-random.git:
-      url: https://github.com/monochromegane/mruby-secure-random.git
-      branch: HEAD
-      commit: 4971702e8cd299054b3220b4adb6bc3031ae2881
-      version: 0.0.0
     https://github.com/shibafu528/mruby-diva.git:
       url: https://github.com/shibafu528/mruby-diva.git
       branch: HEAD
       commit: 42a5a00effd2033920ef4ca9aaa41a9d1f62c87c
       version: 0.2.1
-    https://github.com/zzak/mruby-uri.git:
-      url: https://github.com/zzak/mruby-uri.git
-      branch: HEAD
-      commit: b3108ae56a48990eb7b79f44aca4ec76e1e60ad8
-      version: 0.0.0
-    https://github.com/mattn/mruby-onig-regexp.git:
-      url: https://github.com/mattn/mruby-onig-regexp.git
-      branch: HEAD
-      commit: 76087d150d12f167e95ae10d326099b352cf3d18
-      version: 0.0.0
     https://github.com/ksss/mruby-singleton.git:
       url: https://github.com/ksss/mruby-singleton.git
       branch: HEAD
       commit: 73dd4bae1a47d82e49b8f85bf27f49ec4462052e
-      version: 0.0.0
-    https://github.com/iij/mruby-dir.git:
-      url: https://github.com/iij/mruby-dir.git
-      branch: HEAD
-      commit: 89dceefa1250fb1ae868d4cb52498e9e24293cd1
       version: 0.0.0
     https://github.com/mrbgems/mruby-yaml.git:
       url: https://github.com/mrbgems/mruby-yaml.git
@@ -68,4 +28,44 @@ builds:
       url: https://github.com/mattn/mruby-require.git
       branch: HEAD
       commit: b2b95a27b8658c46c5cb05abd168e77a12aef2a4
+      version: 0.0.0
+    https://github.com/iij/mruby-dir.git:
+      url: https://github.com/iij/mruby-dir.git
+      branch: HEAD
+      commit: 89dceefa1250fb1ae868d4cb52498e9e24293cd1
+      version: 0.0.0
+    https://github.com/shibafu528/mruby-delayer.git:
+      url: https://github.com/shibafu528/mruby-delayer.git
+      branch: HEAD
+      commit: 4fc0ca2c2ff70221a4917f8a092ca0f4be0d74ed
+      version: 1.1.2
+    https://github.com/shibafu528/mruby-instance-storage.git:
+      url: https://github.com/shibafu528/mruby-instance-storage.git
+      branch: HEAD
+      commit: d11690a510ddaf3559328cb78c1b81cd7260e152
+      version: 1.0.0
+    https://github.com/yui-knk/mruby-set.git:
+      url: https://github.com/yui-knk/mruby-set.git
+      branch: HEAD
+      commit: 68334311ac7386eef84f3034a256e7135a87625d
+      version: 0.0.0
+    https://github.com/IceDragon200/mruby-catch-throw:
+      url: https://github.com/IceDragon200/mruby-catch-throw
+      branch: HEAD
+      commit: 2b6eaff4232b4a9473b864df53c2917080af5dcf
+      version: 1.1.0
+    https://github.com/monochromegane/mruby-secure-random.git:
+      url: https://github.com/monochromegane/mruby-secure-random.git
+      branch: HEAD
+      commit: 4971702e8cd299054b3220b4adb6bc3031ae2881
+      version: 0.0.0
+    https://github.com/zzak/mruby-uri.git:
+      url: https://github.com/zzak/mruby-uri.git
+      branch: HEAD
+      commit: b3108ae56a48990eb7b79f44aca4ec76e1e60ad8
+      version: 0.0.0
+    https://github.com/mattn/mruby-onig-regexp.git:
+      url: https://github.com/mattn/mruby-onig-regexp.git
+      branch: HEAD
+      commit: 76087d150d12f167e95ae10d326099b352cf3d18
       version: 0.0.0
