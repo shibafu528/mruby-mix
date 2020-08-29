@@ -1,5 +1,15 @@
 MRuby::Lockfile.disable
 
+shared = ->(conf) do
+  conf.cc.defines << %w(MRB_UTF8_STRING)
+
+  conf.gem 'mruby-mix'
+  conf.gem 'mruby-mix-miquire-fs'
+  conf.gem 'mruby-mix-twitter-models'
+  conf.gem 'mruby-mix-polyfill-gtk'
+  conf.gem 'mruby-mix-bin'
+end
+
 MRuby::Build.new do |conf|
   # load specific toolchain settings
 
@@ -27,18 +37,14 @@ MRuby::Build.new do |conf|
   # include the default GEMs
   conf.gembox 'default'
 
-  conf.gem 'mruby-mix'
-  conf.gem 'mruby-mix-miquire-fs'
-  conf.gem 'mruby-mix-twitter-models'
-  conf.gem 'mruby-mix-polyfill-gtk'
-  conf.gem 'mruby-mix-bin'
+  shared.(conf)
 
   # C compiler settings
   conf.cc do |cc|
   #   cc.command = ENV['CC'] || 'gcc'
   #   cc.flags = [ENV['CFLAGS'] || %w()]
   #   cc.include_paths = ["#{root}/include"]
-    cc.defines = %w(MRB_UTF8_STRING)
+  #   cc.defines = %w(MRB_UTF8_STRING)
   #   cc.option_include_path = %q[-I"%s"]
   #   cc.option_define = '-D%s'
   #   cc.compile_options = %Q[%{flags} -MMD -o "%{outfile}" -c "%{infile}"]
@@ -133,6 +139,8 @@ MRuby::Build.new('test') do |conf|
   conf.enable_test
 
   conf.gembox 'default'
+
+  shared.(conf)
 end
 
 #MRuby::Build.new('bench') do |conf|
