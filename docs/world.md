@@ -34,7 +34,7 @@ mikutterでは可能だったアカウントの永続化のような操作は、
 ```ruby
 module Plugin::World::Gate
   # @return [Array<Diva::Model>]
-  def accounts
+  def self.accounts
   end
 end
 ```
