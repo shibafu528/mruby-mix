@@ -31,6 +31,21 @@ def log(prefix, object)
   end
 end
 
+class Object
+  def freezable?
+    true
+  end
+
+  def freeze_ifn
+    freeze if freezable?
+    self
+  end
+
+  def melt
+    frozen? ? dup : self
+  end
+end
+
 class Array
   include Comparable
 
@@ -50,3 +65,23 @@ class Hash
     result
   end
 end
+
+class Numeric
+  def freezable?
+    false end end
+
+class Symbol
+  def freezable?
+    false end end
+
+class TrueClass
+  def freezable?
+    false end end
+
+class FalseClass
+  def freezable?
+    false end end
+
+class NilClass
+  def freezable?
+    false end end
