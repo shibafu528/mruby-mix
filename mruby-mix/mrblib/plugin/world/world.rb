@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-Plugin.create(:world) do
+Plugin.autoload(:world) do
   # 登録されている全てのWorldを列挙する。
   # 次のような方法で、Enumeratorを取得できる。
   # ==== Example

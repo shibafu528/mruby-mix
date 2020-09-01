@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-Plugin.create(:spell) do
+Plugin.autoload(:spell) do
   defevent :search_spell, prototype: [Pluggaloid::COLLECT, Symbol, [Diva::Model], Hash]
 
   defdsl :defspell do |spell_name, *constraint, condition: nil, &block|

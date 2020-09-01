@@ -5,7 +5,7 @@ module Plugin::Gtk
   class GtkError < StandardError; end
 end
 
-Plugin.create(:gtk) do
+Plugin.autoload(:gtk) do
   # 互換クラスのインスタンスを保持する
   @pseudo_instances = {
       postbox: Plugin::GUI::Postbox.instance,
