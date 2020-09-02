@@ -3,7 +3,7 @@
 
 #include <mruby.h>
 
-typedef void (*mix_remain_handler)();
+typedef void (*mix_remain_handler)(mrb_state *mrb);
 typedef void (*mix_log_handler)(const char *msg);
 
 void MRB_API mix_run(mrb_state *mrb);

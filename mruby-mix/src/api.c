@@ -5,7 +5,7 @@
 static mrb_value remain_handler(mrb_state *mrb, mrb_value self) {
   MixGlobalState *gs = MIX_GS(mrb);
   if (gs->remain_handler) {
-    gs->remain_handler();
+    gs->remain_handler(mrb);
   }
   return mrb_nil_value();
 }
