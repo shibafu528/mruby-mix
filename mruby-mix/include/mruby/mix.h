@@ -25,4 +25,15 @@ void MRB_API mix_register_log_handler(mrb_state *mrb, mix_log_handler handler);
  */
 int MRB_API mix_require(mrb_state *mrb, const char *path);
 
+/**
+ * commandのProc呼出引数として使うPlugin::GUI::Eventを生成する。
+ * この関数を使うにはmruby-mix-polyfill-gtkが必要。
+ * @param event コマンドイベントの発生元。mikutterのメニューコマンドおよびショートカットコマンドでは contextmenu が使用される。
+ * @param widget コマンドイベントが発生したWidget。例えば、Plugin::GUI::TimelineやPlugin::GUI::Postboxのインスタンスを渡す。
+ * @param messages 関連するMessageを格納したArray。Messageとしての振る舞いを持ったDiva::Modelとして渡す必要がある。
+ * @param world このイベントを処理する必要のあるWorld。明示的な指定が必要なければ、単にカレントのWorldを渡す。
+ * @return Plugin::GUI::Event
+ */
+mrb_value MRB_API mix_gui_event_new(mrb_state *mrb, const char *event, mrb_value widget, mrb_value messages, mrb_value world);
+
 #endif

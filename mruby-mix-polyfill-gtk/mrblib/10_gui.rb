@@ -2,7 +2,7 @@
 # core/plugin/gui 互換プラグイン
 
 module Plugin::GUI
-  Event = Struct.new(:event, :widget, :messages)
+  Event = Struct.new(:event, :widget, :messages, :world)
 
   class Postbox
     include InstanceStorage

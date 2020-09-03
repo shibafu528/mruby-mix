@@ -57,3 +57,12 @@ int MRB_API mix_require(mrb_state *mrb, const char *path) {
   mrb_gc_arena_restore(mrb, ai);
   return mrb->exc == NULL && mrb_true_p(result);
 }
+
+mrb_value MRB_API mix_gui_event_new(mrb_state *mrb, const char *event, mrb_value widget, mrb_value messages, mrb_value world) {
+  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
+  struct RClass *mod_gui = mrb_module_get_under(mrb, cls_plugin, "GUI");
+  struct RClass *cls_event = mrb_class_get_under(mrb, mod_gui, "Event");
+  mrb_sym sym_event = mrb_intern_cstr(mrb, event);
+  mrb_value args[] = { mrb_symbol_value(sym_event), widget, messages, world };
+  return mrb_obj_new(mrb, cls_event, sizeof(args) / sizeof(args[0]), args);
+}
