@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <mruby/mix.h>
 #include <mruby/proc.h>
 #include "mix_internal.h"
@@ -49,5 +50,10 @@ void MRB_API mix_register_log_handler(mrb_state *mrb, mix_log_handler handler) {
   gs->log_handler = handler;
 }
 
-void MRB_API mix_load_plugin(mrb_state *mrb, char *path) {
+int MRB_API mix_require(mrb_state *mrb, const char *path) {
+  int ai = mrb_gc_arena_save(mrb);
+  mrb_value str_path = mrb_str_new_cstr(mrb, path);
+  mrb_value result = mrb_funcall_argv(mrb, mrb_obj_value(mrb->kernel_module), mrb_intern_lit(mrb, "require"), 1, &str_path);
+  mrb_gc_arena_restore(mrb, ai);
+  return mrb->exc == NULL && mrb_true_p(result);
 }
