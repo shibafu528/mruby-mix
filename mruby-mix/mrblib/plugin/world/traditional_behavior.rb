@@ -20,10 +20,8 @@ module Plugin::World
       end
       alias to_user user_obj
 
-      # @return [String]
       def idname
-        # いい感じに実装しておいてください
-        _traditional_idname
+        user_obj.idname
       end
       alias user idname
     end
