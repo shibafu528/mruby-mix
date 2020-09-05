@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <mruby/mix.h>
+#include <mruby/hash.h>
 #include <mruby/class.h>
 #include <mruby/proc.h>
 #include "mix_internal.h"
+
+#define mrb_intern_cstr_v(mrb, str) mrb_symbol_value(mrb_intern_cstr(mrb, str))
+#define mrb_intern_lit_v(mrb, lit) mrb_symbol_value(mrb_intern_lit(mrb, lit))
 
 static mrb_value remain_handler(mrb_state *mrb, mrb_value self) {
   MixGlobalState *gs = MIX_GS(mrb);
@@ -104,7 +108,10 @@ MRB_API struct RClass* mix_module_dig(mrb_state *mrb, size_t count, const char *
 
 mrb_value MRB_API mix_gui_event_new(mrb_state *mrb, const char *event, mrb_value widget, mrb_value messages, mrb_value world) {
   struct RClass *cls_event = mix_class_get(mrb, "Plugin", "GUI", "Event");
-  mrb_sym sym_event = mrb_intern_cstr(mrb, event);
-  mrb_value args[] = { mrb_symbol_value(sym_event), widget, messages, world };
-  return mrb_obj_new(mrb, cls_event, sizeof(args) / sizeof(args[0]), args);
+  mrb_value args = mrb_hash_new(mrb);
+  mrb_hash_set(mrb, args, mrb_intern_lit_v(mrb, "event"), mrb_intern_cstr_v(mrb, event));
+  mrb_hash_set(mrb, args, mrb_intern_lit_v(mrb, "widget"), widget);
+  mrb_hash_set(mrb, args, mrb_intern_lit_v(mrb, "messages"), messages);
+  mrb_hash_set(mrb, args, mrb_intern_lit_v(mrb, "world"), world);
+  return mrb_obj_new(mrb, cls_event, 1, &args);
 }

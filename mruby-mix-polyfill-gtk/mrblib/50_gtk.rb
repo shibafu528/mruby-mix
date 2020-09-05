@@ -3,20 +3,38 @@
 
 module Plugin::Gtk
   class GtkError < StandardError; end
+
+  class Postbox
+    TextView = Struct.new(:buffer)
+    Buffer = Struct.new(:text)
+
+    attr_reader :widget_post
+    attr_accessor :options
+
+    def initialize(**options)
+      @options = options
+      @widget_post = TextView.new(Buffer.new(''))
+    end
+  end
 end
 
 Plugin.autoload(:gtk) do
   # 互換クラスのインスタンスを保持する
-  @pseudo_instances = {
-      postbox: Plugin::GUI::Postbox.instance,
-      timeline: Plugin::GUI::Timeline.instance
+  @instances = {
+    Plugin::GUI::Postbox => Hash.new
   }
 
-  def widgetof(slug_or_instance)
-    if slug_or_instance.is_a? Symbol
-      @pseudo_instances[slug_or_instance]
-    else
-      @pseudo_instances[slug_or_instance.class.to_s.split('::').last.downcase.to_sym]
+  def widgetof(gui_instance)
+    @instances[gui_instance.class][gui_instance.slug]
+  end
+
+  on_postbox_created do |i_postbox|
+    @instances[Plugin::GUI::Postbox][i_postbox.slug] = i_postbox
+  end
+
+  on_gui_destroy do |i_widget|
+    if store = @instances[i_widget.class]
+      store.delete(i_widget.slug)
     end
   end
 end
