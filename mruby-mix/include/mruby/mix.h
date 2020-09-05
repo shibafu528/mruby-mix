@@ -92,15 +92,17 @@ MRB_API mrb_value mix_plugin_event_get_name_from_env(mrb_state *mrb);
  * @param plugin Plugin
  * @param event_name イベント名
  * @param callback コールバック
+ * @return Pluggaloid::Listener
  */
-MRB_API void mix_plugin_add_event_listener(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
+MRB_API mrb_value mix_plugin_add_event_listener(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
 
 /**
  * Pluginにネイティブのイベントフィルタを登録する。
  * @param plugin Plugin
  * @param event_name イベント名
  * @param callback コールバック
+ * @return Pluggaloid::Filter
  */
-MRB_API void mix_plugin_add_event_filter(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
+MRB_API mrb_value mix_plugin_add_event_filter(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
 
 #endif
