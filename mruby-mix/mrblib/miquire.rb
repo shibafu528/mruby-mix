@@ -50,7 +50,7 @@ module Mix::Miquire
     end
 
     def load_all
-      each(&:load)
+      each(&:load).map(&:name)
     end
   end
 
