@@ -50,4 +50,43 @@ MRB_API struct RClass* mix_module_dig(mrb_state *mrb, size_t count, const char *
  */
 mrb_value MRB_API mix_gui_event_new(mrb_state *mrb, const char *event, mrb_value widget, mrb_value messages, mrb_value world);
 
+/**
+ * Pluginのインスタンスを取得、または新規作成します。
+ * @param slug プラグインのslug
+ */
+mrb_value mix_plugin_get(mrb_state *mrb, const char *slug);
+
+/** mix_plugin_get() のエイリアス */
+#define mix_plugin_create(mrb, slug) mix_plugin_get(mrb, slug)
+
+/**
+ * 現在実行中のイベントリスナーが登録されているPluginを取得する。
+ * イベントリスナー関数の外で呼び出してはいけない。
+ * @return Plugin
+ */
+MRB_API mrb_value mix_plugin_event_get_receiver_from_env(mrb_state *mrb);
+
+/**
+ * 現在実行中のイベントの名前を取得する。
+ * イベントリスナー関数の外で呼び出してはいけない。
+ * @return Symbol
+ */
+MRB_API mrb_value mix_plugin_event_get_name_from_env(mrb_state *mrb);
+
+/**
+ * Pluginにネイティブのイベントリスナーを登録する。
+ * @param plugin Plugin
+ * @param event_name イベント名
+ * @param callback コールバック
+ */
+MRB_API void mix_plugin_add_event_listener(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
+
+/**
+ * Pluginにネイティブのイベントフィルタを登録する。
+ * @param plugin Plugin
+ * @param event_name イベント名
+ * @param callback コールバック
+ */
+MRB_API void mix_plugin_add_event_filter(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
+
 #endif
