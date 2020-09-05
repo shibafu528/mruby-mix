@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <mruby/mix.h>
+#include <mruby/class.h>
 #include <mruby/proc.h>
 #include "mix_internal.h"
 
@@ -58,10 +59,28 @@ int MRB_API mix_require(mrb_state *mrb, const char *path) {
   return mrb->exc == NULL && mrb_true_p(result);
 }
 
+MRB_API struct RClass* mix_class_dig(mrb_state *mrb, size_t count, const char **names) {
+  mrb_value klass = mrb_obj_value(mrb->object_class);
+  for (size_t i = 0; i < count; i++) {
+    klass = mrb_const_get(mrb, klass, mrb_intern_cstr(mrb, names[i]));
+  }
+
+  mrb_check_type(mrb, klass, MRB_TT_CLASS);
+  return mrb_class_ptr(klass);
+}
+
+MRB_API struct RClass* mix_module_dig(mrb_state *mrb, size_t count, const char **names) {
+  mrb_value klass = mrb_obj_value(mrb->object_class);
+  for (size_t i = 0; i < count; i++) {
+    klass = mrb_const_get(mrb, klass, mrb_intern_cstr(mrb, names[i]));
+  }
+
+  mrb_check_type(mrb, klass, MRB_TT_MODULE);
+  return mrb_class_ptr(klass);
+}
+
 mrb_value MRB_API mix_gui_event_new(mrb_state *mrb, const char *event, mrb_value widget, mrb_value messages, mrb_value world) {
-  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
-  struct RClass *mod_gui = mrb_module_get_under(mrb, cls_plugin, "GUI");
-  struct RClass *cls_event = mrb_class_get_under(mrb, mod_gui, "Event");
+  struct RClass *cls_event = mix_class_get(mrb, "Plugin", "GUI", "Event");
   mrb_sym sym_event = mrb_intern_cstr(mrb, event);
   mrb_value args[] = { mrb_symbol_value(sym_event), widget, messages, world };
   return mrb_obj_new(mrb, cls_event, sizeof(args) / sizeof(args[0]), args);

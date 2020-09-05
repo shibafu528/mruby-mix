@@ -25,6 +25,20 @@ void MRB_API mix_register_log_handler(mrb_state *mrb, mix_log_handler handler);
  */
 int MRB_API mix_require(mrb_state *mrb, const char *path);
 
+#define mix_class_get(mrb, ...) mix_class_dig(mrb, sizeof((const char*[]){ __VA_ARGS__ }) / sizeof(const char*), (const char*[]){ __VA_ARGS__ })
+
+#define mix_module_get(mrb, ...) mix_module_dig(mrb, sizeof((const char*[]){ __VA_ARGS__ }) / sizeof(const char*), (const char*[]){ __VA_ARGS__ })
+
+/**
+ * ネストした空間に対するmrb_class_getの簡易版。
+ */
+MRB_API struct RClass* mix_class_dig(mrb_state *mrb, size_t count, const char **names);
+
+/**
+ * ネストした空間に対するmrb_module_getの簡易版。
+ */
+MRB_API struct RClass* mix_module_dig(mrb_state *mrb, size_t count, const char **names);
+
 /**
  * commandのProc呼出引数として使うPlugin::GUI::Eventを生成する。
  * この関数を使うにはmruby-mix-polyfill-gtkが必要。
