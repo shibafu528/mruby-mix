@@ -6,6 +6,7 @@
 
 typedef struct {
   mix_remain_handler remain_handler;
+  mix_reserve_handler reserve_handler;
   mix_log_handler log_handler;
 } MixGlobalState;
 

@@ -12,6 +12,16 @@ static mrb_value remain_handler(mrb_state *mrb, mrb_value self) {
   return mrb_nil_value();
 }
 
+static mrb_value reserve_handler(mrb_state *mrb, mrb_value self) {
+  MixGlobalState *gs = MIX_GS(mrb);
+  if (gs->reserve_handler) {
+    mrb_float delay = 0;
+    mrb_get_args(mrb, "f", &delay);
+    gs->reserve_handler(mrb, delay);
+  }
+  return mrb_nil_value();
+}
+
 void MRB_API mix_run(mrb_state *mrb) {
   struct RClass *mod_delayer = mrb_module_get(mrb, "Delayer");
   mrb_value mod_delayer_val = mrb_obj_value(mod_delayer);
@@ -42,6 +52,19 @@ void MRB_API mix_register_remain_handler(mrb_state *mrb, mix_remain_handler hand
   mrb_funcall_with_block(mrb,
                          mrb_obj_value(mod_delayer),
                          mrb_intern_lit(mrb, "register_remain_hook"),
+                         0, NULL,
+                         mrb_obj_value(proc));
+}
+
+void MRB_API mix_register_reserve_handler(mrb_state *mrb, mix_reserve_handler handler) {
+  MixGlobalState *gs = MIX_GS(mrb);
+  gs->reserve_handler = handler;
+
+  struct RClass *mod_delayer = mrb_module_get(mrb, "Delayer");
+  struct RProc *proc = mrb_proc_new_cfunc(mrb, reserve_handler);
+  mrb_funcall_with_block(mrb,
+                         mrb_obj_value(mod_delayer),
+                         mrb_intern_lit(mrb, "register_reserve_hook"),
                          0, NULL,
                          mrb_obj_value(proc));
 }

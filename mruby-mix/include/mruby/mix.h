@@ -3,7 +3,15 @@
 
 #include <mruby.h>
 
+/** mix_register_remain_handler() で使えるコールバック関数の仕様。 */
 typedef void (*mix_remain_handler)(mrb_state *mrb);
+
+/**
+ * mix_register_reserve_handler() で使えるコールバック関数の仕様。
+ * @param delay イベントが何秒後に予約されたかの値。コールバックされた時点からこの時間が経過したら mix_run() が呼ばれることを期待している。
+ */
+typedef void (*mix_reserve_handler)(mrb_state *mrb, mrb_float delay);
+
 typedef void (*mix_log_handler)(const char *msg);
 
 /** キューされているイベントを全て処理する。 */
@@ -14,6 +22,12 @@ void MRB_API mix_run(mrb_state *mrb);
  * ホスト側で持っているイベントループにキューするために使える。
  */
 void MRB_API mix_register_remain_handler(mrb_state *mrb, mix_remain_handler handler);
+
+/**
+ * ある時間が経過した後に実行されることを期待したイベントがキューされた際に呼び出されるコールバックを登録する。
+ * mix_register_remain_handler() と同様の目的で使える。
+ */
+void MRB_API mix_register_reserve_handler(mrb_state *mrb, mix_reserve_handler handler);
 
 /** utils.rb経由で出力されたログを受け取るコールバックを登録する。 */
 void MRB_API mix_register_log_handler(mrb_state *mrb, mix_log_handler handler);
