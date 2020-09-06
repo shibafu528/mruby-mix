@@ -46,7 +46,7 @@ MRB_API mrb_value mix_define_spell(mrb_state *mrb, const char *spell_name, mrb_i
     mrb_hash_set(mrb, args[slug_count + 1], mrb_symbol_value(mrb_intern_lit(mrb, "condition")), condition);
   }
 
-  mrb_value result = mrb_funcall_argv(mrb, plugin, mrb_intern_lit(mrb, "defspell"), slug_count + 2, args);
+  mrb_value result = mrb_funcall_with_block(mrb, plugin, mrb_intern_lit(mrb, "defspell"), slug_count + 2, args, body);
 
   if (!mrb_exception_p(result)) {
     return mrb_true_value();
