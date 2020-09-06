@@ -33,7 +33,7 @@ MRB_API mrb_bool mix_spell_defined(mrb_state *mrb, const char *spell_name, mrb_i
 }
 
 MRB_API mrb_value mix_define_spell(mrb_state *mrb, const char *spell_name, mrb_int slug_count, const mrb_sym *slugs, mrb_value condition, mrb_value body) {
-  assert_plugin_loaded(mrb, "Spell");
+  assert_plugin_loaded(mrb, "spell");
 
   mrb_value plugin = mix_plugin_get(mrb, "spell");
   mrb_value args[slug_count + 2];
