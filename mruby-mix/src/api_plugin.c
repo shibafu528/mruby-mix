@@ -1,4 +1,6 @@
+#include <string.h>
 #include <mruby/mix.h>
+#include <mruby/array.h>
 #include <mruby/proc.h>
 #include "mix_internal.h"
 
@@ -6,6 +8,58 @@ MRB_API mrb_value mix_plugin_get(mrb_state *mrb, const char *slug) {
   struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
   mrb_value sym_slug = mrb_symbol_value(mrb_intern_cstr(mrb, slug));
   return mrb_funcall_argv(mrb, mrb_obj_value(cls_plugin), mrb_intern_lit(mrb, "[]"), 1, &sym_slug);
+}
+
+MRB_API mrb_value mix_plugin_call_arg0(mrb_state *mrb, const char *event_name) {
+  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
+  mrb_value sym_event_name = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  return mrb_funcall_argv(mrb, mrb_obj_value(cls_plugin), mrb_intern_lit(mrb, "call"), 1, &sym_event_name);
+}
+
+MRB_API mrb_value mix_plugin_call_arg1(mrb_state *mrb, const char *event_name, mrb_value arg) {
+  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
+  mrb_value sym_event_name = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  mrb_value args[] = { sym_event_name, arg };
+  return mrb_funcall_argv(mrb, mrb_obj_value(cls_plugin), mrb_intern_lit(mrb, "call"), 2, args);
+}
+
+MRB_API mrb_value mix_plugin_call_argv(mrb_state *mrb, const char *event_name, mrb_int argc, const mrb_value *argv) {
+  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
+  mrb_value args[argc + 1];
+  args[0] = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  memcpy(&args[1], argv, sizeof(mrb_value) * argc);
+  return mrb_funcall_argv(mrb, mrb_obj_value(cls_plugin), mrb_intern_lit(mrb, "call"), argc + 1, args);
+}
+
+MRB_API mrb_value mix_plugin_filtering_arg1(mrb_state *mrb, const char *event_name, mrb_value arg) {
+  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
+  mrb_value sym_event_name = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  mrb_value args[] = { sym_event_name, arg };
+  mrb_value results = mrb_funcall_argv(mrb, mrb_obj_value(cls_plugin), mrb_intern_lit(mrb, "filtering"), 2, args);
+  if (mrb_array_p(results)) {
+    return mrb_ary_entry(results, 0);
+  }
+  return results;
+}
+
+MRB_API mrb_value mix_plugin_filtering_argv(mrb_state *mrb, const char *event_name, mrb_int argc, const mrb_value *argv) {
+  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
+  mrb_value args[argc + 1];
+  args[0] = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  memcpy(&args[1], argv, sizeof(mrb_value) * argc);
+  return mrb_funcall_argv(mrb, mrb_obj_value(cls_plugin), mrb_intern_lit(mrb, "filtering"), argc + 1, args);
+}
+
+MRB_API mrb_value mix_plugin_filtering_and_nth(mrb_state *mrb, const char *event_name, mrb_int argc, const mrb_value *argv, mrb_int nth_result) {
+  struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");
+  mrb_value args[argc + 1];
+  args[0] = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  memcpy(&args[1], argv, sizeof(mrb_value) * argc);
+  mrb_value results = mrb_funcall_argv(mrb, mrb_obj_value(cls_plugin), mrb_intern_lit(mrb, "filtering"), argc + 1, args);
+  if (mrb_array_p(results)) {
+    return mrb_ary_entry(results, nth_result);
+  }
+  return results;
 }
 
 MRB_API mrb_value mix_plugin_event_get_receiver_from_env(mrb_state *mrb) {

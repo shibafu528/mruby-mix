@@ -74,6 +74,57 @@ mrb_value mix_plugin_get(mrb_state *mrb, const char *slug);
 #define mix_plugin_create(mrb, slug) mix_plugin_get(mrb, slug)
 
 /**
+ * 引数なしでイベントを発生させる。
+ * @param event_name イベント名
+ * @return Delayer
+ */
+MRB_API mrb_value mix_plugin_call_arg0(mrb_state *mrb, const char *event_name);
+
+/**
+ * 1つの引数を持ったイベントを発生させる。
+ * @param event_name イベント名
+ * @param arg 最初の引数
+ * @return Delayer
+ */
+MRB_API mrb_value mix_plugin_call_arg1(mrb_state *mrb, const char *event_name, mrb_value arg);
+
+/**
+ * 任意数の引数を持ったイベントを発生させる。
+ * @param event_name イベント名
+ * @param argc 引数の数
+ * @param argv 引数の配列
+ * @return Delayer
+ */
+MRB_API mrb_value mix_plugin_call_argv(mrb_state *mrb, const char *event_name, mrb_int argc, const mrb_value *argv);
+
+/**
+ * 1つの引数をフィルタリングした結果を返す。
+ * @param event_name イベント名
+ * @param arg 最初の引数
+ * @return フィルタされた引数
+ */
+MRB_API mrb_value mix_plugin_filtering_arg1(mrb_state *mrb, const char *event_name, mrb_value arg);
+
+/**
+ * 任意数の引数をフィルタリングした結果を返す。
+ * @param event_name イベント名
+ * @param argc 引数の数
+ * @param argv 引数の配列
+ * @return フィルタされた引数の配列
+ */
+MRB_API mrb_value mix_plugin_filtering_argv(mrb_state *mrb, const char *event_name, mrb_int argc, const mrb_value *argv);
+
+/**
+ * 任意数の引数をフィルタリングし、結果の `nth_result` 番目を取り出す。
+ * @param event_name イベント名
+ * @param argc 引数の数
+ * @param argv 引数の配列
+ * @param nth_result フィルタ結果から取り出す要素の序数
+ * @return フィルタされた引数の `nth_result` 番目の値
+ */
+MRB_API mrb_value mix_plugin_filtering_and_nth(mrb_state *mrb, const char *event_name, mrb_int argc, const mrb_value *argv, mrb_int nth_result);
+
+/**
  * 現在実行中のイベントリスナーが登録されているPluginを取得する。
  * イベントリスナー関数の外で呼び出してはいけない。
  * @return Plugin
