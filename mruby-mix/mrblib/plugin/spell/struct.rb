@@ -30,6 +30,10 @@ module Plugin::Spell
       order = constraint.map{|a| Diva::Model(a) }
       models_sorted = models.sort_by{|m| order.index(m.class) }
       optional ||= {}.freeze
+      if block.arity < 0
+        # NOTE: mruby 2.1現在、C関数がバインドされたProcの引数情報は取得できないので検査不能
+        return block.call(*models_sorted, **optional)
+      end
       args = Array.new
       kwargs = Hash.new
       block.parameters.each do |kind, name|
