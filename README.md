@@ -35,5 +35,5 @@ GUIおよびGTKプラグインのスタブ。command DSLを使うプラグイン
 ドキュメントしきれていない部分を含めて完璧に実装するには、mikutterの内部実装についての知識も必要となるでしょう。
 
 また、CからPluggaloidを操作するための補助的な関数群を提供しています。  
-`mriby-mix/include` をインクルードパスに追加して `#include <mruby/mix.h>` で使用可能です。  
+`mruby-mix/include` をインクルードパスに追加して `#include <mruby/mix.h>` で使用可能です。  
 提供している関数についてのドキュメントは https://mruby-mix-docs.netlify.app/ で公開しています。
