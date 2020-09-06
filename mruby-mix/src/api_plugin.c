@@ -2,7 +2,6 @@
 #include <mruby/mix.h>
 #include <mruby/array.h>
 #include <mruby/proc.h>
-#include "mix_internal.h"
 
 MRB_API mrb_value mix_plugin_get(mrb_state *mrb, const char *slug) {
   struct RClass *cls_plugin = mrb_class_get(mrb, "Plugin");

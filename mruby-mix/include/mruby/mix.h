@@ -156,4 +156,34 @@ MRB_API mrb_value mix_plugin_add_event_listener(mrb_state *mrb, mrb_value plugin
  */
 MRB_API mrb_value mix_plugin_add_event_filter(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
 
+/**
+ * Spellを呼び出す。
+ * @param spell_name Spellの名前
+ * @param argc 引数の数
+ * @param argv 引数の配列
+ * @return Delayer::Deferred
+ */
+MRB_API mrb_value mix_spell(mrb_state *mrb, const char *spell_name, mrb_int argc, const mrb_value *argv);
+
+/**
+ * 指定した引数に応答できるSpellが定義されているかを確認する。
+ * @param spell_name Spellの名前
+ * @param argc 引数の数
+ * @param argv 引数の配列
+ * @return 呼び出し可能であればTRUE
+ */
+MRB_API mrb_bool mix_spell_defined(mrb_state *mrb, const char *spell_name, mrb_int argc, const mrb_value *argv);
+
+/**
+ * Spellを定義する。
+ * @param spell_name Spellの名前
+ * @param slug_count 引数となるModelのslugの数
+ * @param slugs 引数となるModelのslugの配列
+ * @param condition 前提条件のProc。不要な場合は mrb_nil_value() で省略可能。
+ * @param body 呼び出された際に実行するProc。
+ * @see https://reference.mikutter.hachune.net/basis/2017/12/11/spell.html
+ * @return 定義に成功した場合はtrue
+ */
+MRB_API mrb_value mix_define_spell(mrb_state *mrb, const char *spell_name, mrb_int slug_count, const mrb_sym *slugs, mrb_value condition, mrb_value body);
+
 #endif
