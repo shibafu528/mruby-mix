@@ -68,7 +68,7 @@ mrb_value MRB_API mix_gui_event_new(mrb_state *mrb, const char *event, mrb_value
  * Pluginのインスタンスを取得、または新規作成します。
  * @param slug プラグインのslug
  */
-mrb_value mix_plugin_get(mrb_state *mrb, const char *slug);
+MRB_API mrb_value mix_plugin_get(mrb_state *mrb, const char *slug);
 
 /** mix_plugin_get() のエイリアス */
 #define mix_plugin_create(mrb, slug) mix_plugin_get(mrb, slug)
