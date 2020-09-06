@@ -61,6 +61,14 @@ MRB_API mrb_value mix_plugin_filtering_and_nth(mrb_state *mrb, const char *event
   return results;
 }
 
+MRB_API mrb_value mix_plugin_event_env(mrb_state *mrb, mix_event_env_t item) {
+  if (item < 0 || MIX_EVENT_ENV_LENGTH <= item) {
+    mrb_raise(mrb, E_RANGE_ERROR, "item out of range");
+  }
+
+  return mrb_proc_cfunc_env_get(mrb, item);
+}
+
 MRB_API mrb_value mix_plugin_event_get_receiver_from_env(mrb_state *mrb) {
   return mrb_proc_cfunc_env_get(mrb, 0);
 }

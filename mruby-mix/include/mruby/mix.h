@@ -14,6 +14,18 @@ typedef void (*mix_reserve_handler)(mrb_state *mrb, mrb_float delay);
 
 typedef void (*mix_log_handler)(const char *msg);
 
+/**
+ * mix_plugin_event_env() で取得可能な情報の識別子。
+ */
+typedef enum {
+  /** 実行中のイベントリスナーが登録されているPlugin */
+  MIX_EVENT_ENV_RECEIVER = 0,
+  /** 実行中のイベントの名前 (Symbol) */
+  MIX_EVENT_ENV_NAME = 1,
+  /** @private */
+  MIX_EVENT_ENV_LENGTH
+} mix_event_env_t;
+
 /** キューされているイベントを全て処理する。 */
 void MRB_API mix_run(mrb_state *mrb);
 
@@ -125,17 +137,28 @@ MRB_API mrb_value mix_plugin_filtering_argv(mrb_state *mrb, const char *event_na
 MRB_API mrb_value mix_plugin_filtering_and_nth(mrb_state *mrb, const char *event_name, mrb_int argc, const mrb_value *argv, mrb_int nth_result);
 
 /**
+ * 現在実行中のイベントに関する変数(イベント名など)を取得する。
+ * イベントリスナー関数の外で呼び出してはいけない。
+ * @param item 取得する情報
+ */
+MRB_API mrb_value mix_plugin_event_env(mrb_state *mrb, mix_event_env_t item);
+
+/**
  * 現在実行中のイベントリスナーが登録されているPluginを取得する。
  * イベントリスナー関数の外で呼び出してはいけない。
  * @return Plugin
+ * @deprecated mix_plugin_event_env() を使うこと。
  */
+__attribute__((deprecated))
 MRB_API mrb_value mix_plugin_event_get_receiver_from_env(mrb_state *mrb);
 
 /**
  * 現在実行中のイベントの名前を取得する。
  * イベントリスナー関数の外で呼び出してはいけない。
  * @return Symbol
+ * @deprecated mix_plugin_event_env() を使うこと。
  */
+__attribute__((deprecated))
 MRB_API mrb_value mix_plugin_event_get_name_from_env(mrb_state *mrb);
 
 /**
