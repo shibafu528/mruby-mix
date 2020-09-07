@@ -12,6 +12,22 @@ class Plugin < Pluggaloid::Plugin
     end
   end
 
+  # command DSLの実体はmruby-mix-polyfill-gtk内のgui pluginにある。
+  # このメソッドではgui pluginのロードを試みた上で転送する。
+  def command(slug, options, &exec)
+    if Plugin.instance_exist?(:gui)
+      raise NoMethodError, "undefined method 'command' for #{self}"
+    end
+
+    gui = Mix::Miquire.find_by_slug(:gui)
+    unless gui
+      raise NoMethodError, "undefined method 'command' for #{self}"
+    end
+
+    gui.load
+    command(slug, options, &exec)
+  end
+
   Autoloader = []
 end
 
