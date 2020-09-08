@@ -10,12 +10,17 @@ module Diva
 
     def model_dict
       @model ||= Hash.new do |h,k|
-        Enumerator.new(ObjectSpace, :each_object, Diva::Model.singleton_class).find do |klass|
+        found = nil
+        ObjectSpace.each_object(Diva::Model.singleton_class) do |klass|
           if klass.slug
             h[klass.slug] = klass
           end
-          klass.slug == k
+          if klass.slug == k
+            found = klass
+            break
+          end
         end
+        found
       end
     end
   end
