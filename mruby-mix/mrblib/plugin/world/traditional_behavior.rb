@@ -4,8 +4,8 @@ module Plugin::World
   module TraditionalBehavior
     # mikutter 3.5 Service (Twitter::World) 互換
     module World
-      def post(to: nil, message:, **kwrest)
-        Plugin[:world].compose(self, to, body: message, **kwrest)
+      def post(to: nil, replyto: nil, message:, **kwrest)
+        Plugin[:world].compose(self, to || replyto, body: message, **kwrest)
       end
       alias update post # 厳密にはupdateはmikutwitterの呼び出しだが...
 
@@ -36,6 +36,10 @@ module Plugin::World
 
       def message
         self
+      end
+
+      def idname
+        user.idname
       end
     end
   end
