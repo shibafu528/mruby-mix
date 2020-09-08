@@ -216,6 +216,12 @@ MRB_API mrb_value mix_define_spell(mrb_state *mrb, const char *spell_name, mrb_i
 MRB_API mrb_value mix_miquire_load_all(mrb_state *mrb);
 
 /**
+ * Mix::Miquire.load_all を呼び出す。ただし、1つでも読み込みに失敗したら例外をスローする。
+ * @return 読み込んだプラグインのslugの配列
+ */
+MRB_API mrb_value mix_miquire_load_all_failfast(mrb_state *mrb);
+
+/**
  * Mix::Miquire.load_path の末尾にエントリを追加する。
  * @param loadpath 追加するエントリ
  */

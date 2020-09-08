@@ -44,7 +44,7 @@ module Mix::Miquire
         Kernel.load(File.join(plugin_dir, "#{spec[:slug]}.rb"))
       end
 
-      Plugin.new(dirname, Spec.new(spec), loader)
+      Plugin.new(dirname.to_sym, Spec.new(spec), loader)
     end
 
     def build_single_file_plugin(filename)

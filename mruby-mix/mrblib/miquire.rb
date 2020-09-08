@@ -49,8 +49,18 @@ module Mix::Miquire
       to_hash[slug.to_sym]
     end
 
-    def load_all
-      each(&:load).map(&:name)
+    def load_all(failfast: false)
+      success = []
+
+      each do |plugin|
+        plugin.load
+        success << plugin.name
+      rescue LoadError => e
+        raise e if failfast # なぜかRuntimeErrorになるので、raiseと書けない
+        error e
+      end
+
+      success
     end
   end
 
@@ -78,11 +88,9 @@ module Mix::Miquire
       return true if ::Plugin.instance_exist?(slug)
       
       spec.depended_plugins.each do |depend|
-        begin
-          raise LoadError, "plugin #{slug.inspect} was not loaded because dependent plugin #{depend.inspect} was not loaded." unless depend.load
-        rescue LoadError => e
-          raise LoadError, "plugin #{slug.inspect} was not loaded because dependent plugin was not loaded. previous error is:\n#{e.to_s}"
-        end
+        depend.load
+      rescue LoadError => e
+        raise LoadError, "plugin #{slug.inspect} was not loaded because dependent plugin was not loaded. previous error is:\n#{e.to_s}"
       end
 
       notice "plugin loaded: #{slug}"
@@ -93,6 +101,16 @@ module Mix::Miquire
       @loader.()
       
       true
+    end
+  end
+
+  class MissingPlugin < Plugin
+    def initialize(slug)
+      super(slug, nil, nil)
+    end
+
+    def load
+      raise LoadError, "dependent plugin #{name.inspect} was not found."
     end
   end
 
@@ -118,9 +136,10 @@ module Mix::Miquire
       depends = @attributes.dig(:depends, :plugin)
       if depends
         Array(depends).map do |s|
+          notice "finding #{s.inspect}"
           slug = Array(s).first.to_sym
           if slug
-            Mix::Miquire.find_by_slug(slug)
+            Mix::Miquire.find_by_slug(slug) || MissingPlugin.new(slug)
           else
             slug
           end
