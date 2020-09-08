@@ -211,13 +211,13 @@ MRB_API mrb_value mix_define_spell(mrb_state *mrb, const char *spell_name, mrb_i
 
 /**
  * Mix::Miquire.load_all を呼び出す。
- * @return 読み込んだプラグインのslugの配列
+ * @return 読み込んだプラグインのslugの配列と読み込みに失敗したプラグインのslugの配列。 例: `[[:foo, :bar, ...], [:baz, ...]]`
  */
 MRB_API mrb_value mix_miquire_load_all(mrb_state *mrb);
 
 /**
  * Mix::Miquire.load_all を呼び出す。ただし、1つでも読み込みに失敗したら例外をスローする。
- * @return 読み込んだプラグインのslugの配列
+ * @return mix_miquire_load_all() と同じ。ただし、読み込みに失敗した側の配列は常に空となる。
  */
 MRB_API mrb_value mix_miquire_load_all_failfast(mrb_state *mrb);
 

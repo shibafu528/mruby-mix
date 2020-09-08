@@ -51,6 +51,7 @@ module Mix::Miquire
 
     def load_all(failfast: false)
       success = []
+      failed = []
 
       each do |plugin|
         plugin.load
@@ -58,9 +59,10 @@ module Mix::Miquire
       rescue LoadError => e
         raise e if failfast # なぜかRuntimeErrorになるので、raiseと書けない
         error e
+        failed << plugin.name
       end
 
-      success
+      [success, failed]
     end
   end
 
