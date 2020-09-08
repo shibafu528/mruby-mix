@@ -30,7 +30,7 @@ module Plugin::World
     module Message
       # @param [Hash] other
       def post(message:, **kwrest)
-        world, = Plugin[:world].filtering(:current_world, nil)
+        world, = Plugin.filtering(:world_current, nil)
         Plugin[:world].compose(world, self, body: message, **kwrest)
       end
 
