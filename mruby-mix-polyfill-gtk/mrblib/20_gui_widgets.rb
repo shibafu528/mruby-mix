@@ -4,6 +4,8 @@ module Plugin::GUI
     include CuscadableLite
     include Ephemeral
 
+    attr_accessor :options
+
     def initialize(name)
       super
       Plugin.call(:postbox_created, self)
