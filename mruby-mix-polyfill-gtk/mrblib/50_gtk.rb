@@ -29,7 +29,8 @@ Plugin.autoload(:gtk) do
   end
 
   on_postbox_created do |i_postbox|
-    @instances[Plugin::GUI::Postbox][i_postbox.slug] = i_postbox
+    options = i_postbox.options || Hash.new
+    @instances[Plugin::GUI::Postbox][i_postbox.slug] = Plugin::Gtk::Postbox.new(**options)
   end
 
   on_gui_destroy do |i_widget|
