@@ -43,7 +43,8 @@ module ConfigLoader
   # @return [Object] _key_ に対応するオブジェクト、それが存在しない場合は nil か _ifnone_ の値
   def at(key, ifnone=nil)
     ckey = configloader_key(key)
-    if @@config&.has_key? ckey
+    @@config ||= Hash.new
+    if @@config.has_key? ckey
       @@config[ckey]
     else
       ifnone
