@@ -27,6 +27,10 @@ mikutter 3.4くらいの頃のTwitter機能で使われていたModelのスタ�
 
 GUIおよびGTKプラグインのスタブ。command DSLを使うプラグインが期待するデータ構造の一部が含まれます。
 
+### mruby-mix-command-conditions
+
+Plugin::Command::Condition をそのままパッケージ化したもの。mikutterではobsoleteですが、互換性向上のために使用できます。
+
 ## mixを組み込む開発者の方へ
 
 `docs/` ディレクトリに、プラグインが期待する要件を満たすための手引きをまとめています。ビルド環境が整ったら、こちらをご一読ください。
