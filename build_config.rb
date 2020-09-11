@@ -7,6 +7,7 @@ shared = ->(conf) do
   conf.gem 'mruby-mix-miquire-fs'
   conf.gem 'mruby-mix-twitter-models'
   conf.gem 'mruby-mix-polyfill-gtk'
+  conf.gem 'mruby-mix-command-conditions'
   conf.gem 'mruby-mix-bin'
 end
 
