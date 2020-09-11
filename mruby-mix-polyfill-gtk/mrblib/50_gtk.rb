@@ -6,7 +6,7 @@ module Plugin::Gtk
 
   class Postbox
     TextView = Struct.new(:buffer)
-    Buffer = Struct.new(:text)
+    Buffer = Struct.new(:text, :cursor_position)
 
     attr_reader :widget_post
     attr_accessor :options
