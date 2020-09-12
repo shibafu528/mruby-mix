@@ -171,6 +171,15 @@ MRB_API mrb_value mix_plugin_event_get_name_from_env(mrb_state *mrb);
 MRB_API mrb_value mix_plugin_add_event_listener(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
 
 /**
+ * Pluginにイベントリスナーを登録する。
+ * @param plugin Plugin
+ * @param event_name イベント名
+ * @param proc コールバック (Proc)
+ * @return Pluggaloid::Listener
+ */
+MRB_API mrb_value mix_plugin_add_event_listener_proc(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_value proc);
+
+/**
  * Pluginにネイティブのイベントフィルタを登録する。
  * @param plugin Plugin
  * @param event_name イベント名
@@ -178,6 +187,15 @@ MRB_API mrb_value mix_plugin_add_event_listener(mrb_state *mrb, mrb_value plugin
  * @return Pluggaloid::Filter
  */
 MRB_API mrb_value mix_plugin_add_event_filter(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback);
+
+/**
+ * Pluginにイベントフィルタを登録する。
+ * @param plugin Plugin
+ * @param event_name イベント名
+ * @param proc コールバック (Proc)
+ * @return Pluggaloid::Filter
+ */
+MRB_API mrb_value mix_plugin_add_event_filter_proc(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_value proc);
 
 /**
  * Spellを呼び出す。

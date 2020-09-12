@@ -90,6 +90,17 @@ MRB_API mrb_value mix_plugin_add_event_listener(mrb_state *mrb, mrb_value plugin
   return listener;
 }
 
+MRB_API mrb_value mix_plugin_add_event_listener_proc(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_value proc) {
+  int ai = mrb_gc_arena_save(mrb);
+
+  mrb_value sym_event_name = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  mrb_value listener = mrb_funcall_with_block(mrb, plugin, mrb_intern_lit(mrb, "add_event"), 1, &sym_event_name, proc);
+
+  mrb_gc_arena_restore(mrb, ai);
+  mrb_gc_protect(mrb, listener);
+  return listener;
+}
+
 MRB_API mrb_value mix_plugin_add_event_filter(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_func_t callback) {
   int ai = mrb_gc_arena_save(mrb);
 
@@ -97,6 +108,17 @@ MRB_API mrb_value mix_plugin_add_event_filter(mrb_state *mrb, mrb_value plugin, 
   mrb_value env[] = { plugin, sym_event_name };
   struct RProc *proc = mrb_proc_new_cfunc_with_env(mrb, callback, sizeof(env) / sizeof(mrb_value), env);
   mrb_value filter = mrb_funcall_with_block(mrb, plugin, mrb_intern_lit(mrb, "add_event_filter"), 1, &sym_event_name, mrb_obj_value(proc));
+
+  mrb_gc_arena_restore(mrb, ai);
+  mrb_gc_protect(mrb, filter);
+  return filter;
+}
+
+MRB_API mrb_value mix_plugin_add_event_filter_proc(mrb_state *mrb, mrb_value plugin, const char *event_name, mrb_value proc) {
+  int ai = mrb_gc_arena_save(mrb);
+
+  mrb_value sym_event_name = mrb_symbol_value(mrb_intern_cstr(mrb, event_name));
+  mrb_value filter = mrb_funcall_with_block(mrb, plugin, mrb_intern_lit(mrb, "add_event_filter"), 1, &sym_event_name, proc);
 
   mrb_gc_arena_restore(mrb, ai);
   mrb_gc_protect(mrb, filter);
