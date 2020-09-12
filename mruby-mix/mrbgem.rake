@@ -9,5 +9,4 @@ MRuby::Gem::Specification.new('mruby-mix') do |spec|
   spec.add_dependency 'mruby-diva', :github => 'shibafu528/mruby-diva', :branch => 'mruby'
   spec.add_dependency 'mruby-delayer-deferred', :github => 'shibafu528/mruby-delayer-deferred', :branch => 'mruby'
   spec.add_dependency 'mruby-singleton', :mgem => 'mruby-singleton'
-  spec.add_dependency 'mruby-yaml', :mgem => 'mruby-yaml'
 end

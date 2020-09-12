@@ -7,4 +7,5 @@ MRuby::Gem::Specification.new('mruby-mix-miquire-fs') do |spec|
   spec.add_dependency 'mruby-mix'
   spec.add_dependency 'mruby-require', :mgem => 'mruby-require'
   spec.add_dependency 'mruby-dir', :mgem => 'mruby-dir'
+  spec.add_dependency 'mruby-yaml', :mgem => 'mruby-yaml'
 end
