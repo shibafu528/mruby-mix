@@ -1,6 +1,8 @@
 # User互換クラス
 class User < Diva::Model
 
+  register :twitter_user, name: "Twitter User"
+
   # args format
   # key     | value
   # --------+-----------

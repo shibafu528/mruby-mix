@@ -2,6 +2,8 @@
 class Message < Diva::Model
   include Plugin::World::TraditionalBehavior::Message
 
+  register :twitter_tweet, name: "Tweet"
+
   # args format
   # key     | value(class)
   #---------+--------------
