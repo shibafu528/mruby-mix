@@ -3,6 +3,7 @@ MRuby::Lockfile.disable
 shared = ->(conf) do
   conf.cc.defines << %w(MRB_UTF8_STRING)
 
+  conf.gem core: 'mruby-error'
   conf.gem 'mruby-mix'
   conf.gem 'mruby-mix-miquire-fs'
   conf.gem 'mruby-mix-twitter-models'
