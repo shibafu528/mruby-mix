@@ -1,4 +1,5 @@
 module Plugin::GUI
+  # 仕様参考: https://mikutter.hatenablog.com/entry/Postbox%E3%82%92%E4%BD%BF%E3%81%86
   class Postbox
     include Widget
     include CuscadableLite
